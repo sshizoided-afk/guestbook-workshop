@@ -1,6 +1,6 @@
-FROM python:3.14-slim
+FROM python:3.12-slim
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.28 /uv /uvx /bin/
+RUN pip install uv
 
 WORKDIR /app
 
@@ -12,5 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-ENV PATH="/app/.venv/bin:$PATH"
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
